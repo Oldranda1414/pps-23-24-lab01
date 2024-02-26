@@ -65,6 +65,14 @@ public class CircularListTest {
         circularList.previous();
         assertEquals(SECOND_TEST_VALUE, circularList.previous().get());
     }
+
+    @Test
+    void testResetIterator(){
+        this.addTwoValues();
+        circularList.next();
+        circularList.reset();
+        assertEquals(TEST_VALUE, circularList.next().get());
+    }
     
     private void addTwoValues(){
         circularList.add(TEST_VALUE);

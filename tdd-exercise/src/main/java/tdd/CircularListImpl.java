@@ -20,9 +20,7 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
         else{
             int result = this.get(this.currentIndex);
             this.currentIndex++;
-            if(this.indexOutOfBounds()){
-                currentIndex = 0;
-            }
+            this.fixIndex();
             return Optional.ofNullable(result);
         }
     }
@@ -33,21 +31,24 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
             return Optional.ofNullable(null);
         }
         else{
-            if(this.currentIndex == 0){
-                this.currentIndex = this.size();
-            }
-            int result = this.get(--this.currentIndex);
+            this.currentIndex--;
+            this.fixIndex();
+            int result = this.get(this.currentIndex);
             return Optional.ofNullable(result);
         }
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reset'");
+        this.currentIndex = 0;
     }
 
-    private boolean indexOutOfBounds(){
-        return (this.currentIndex >= this.size());
+    private void fixIndex(){
+        if(this.currentIndex >= this.size()){
+            this.currentIndex = this.currentIndex - this.size();
+        }
+        else if(this.currentIndex < 0){
+            this.currentIndex = this.currentIndex + this.size();
+        }
     }
 }
