@@ -51,6 +51,13 @@ public class CircularListTest {
     }
 
     @Test
+    void testPreviousFuncionality(){
+        this.addTwoValues();
+        circularList.next();
+        assertEquals(TEST_VALUE, circularList.previous().get());
+    }
+
+    @Test
     void testListForwardCircularity(){
         this.addTwoValues();
         circularList.next();
