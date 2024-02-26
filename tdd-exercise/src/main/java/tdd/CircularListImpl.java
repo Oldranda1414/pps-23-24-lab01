@@ -29,8 +29,16 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
 
     @Override
     public Optional<Integer> previous() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'previous'");
+        if(this.isEmpty()){
+            return Optional.ofNullable(null);
+        }
+        else{
+            if(this.currentIndex == 0){
+                this.currentIndex = this.size();
+            }
+            int result = this.get(--this.currentIndex);
+            return Optional.ofNullable(result);
+        }
     }
 
     @Override

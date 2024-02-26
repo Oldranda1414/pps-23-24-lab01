@@ -45,18 +45,29 @@ public class CircularListTest {
 
     @Test
     void testNextFunctionality(){
-        circularList.add(TEST_VALUE);
-        circularList.add(SECOND_TEST_VALUE);
+        this.addTwoValues();
         circularList.next();
         assertEquals(SECOND_TEST_VALUE ,circularList.next().get());
     }
 
     @Test
-    void testListCircularity(){
-        circularList.add(TEST_VALUE);
-        circularList.add(SECOND_TEST_VALUE);
+    void testListForwardCircularity(){
+        this.addTwoValues();
         circularList.next();
         circularList.next();
         assertEquals(TEST_VALUE ,circularList.next().get());
+    }
+
+    @Test
+    void testListBackwardCircularity(){
+        this.addTwoValues();
+        circularList.previous();
+        circularList.previous();
+        assertEquals(SECOND_TEST_VALUE, circularList.previous().get());
+    }
+    
+    private void addTwoValues(){
+        circularList.add(TEST_VALUE);
+        circularList.add(SECOND_TEST_VALUE);
     }
 }
