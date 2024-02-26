@@ -29,7 +29,8 @@ public class CircularListTest {
         assertAll(
             () -> assertTrue(circularList.isEmpty()),
             () -> assertEquals(0, circularList.size()),
-            () -> assertFalse(circularList.next().isPresent())
+            () -> assertFalse(circularList.next().isPresent()),
+            () -> assertFalse(circularList.previous().isPresent())
         );
     }
 
