@@ -3,13 +3,14 @@ package tdd;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class CircularListImpl extends ArrayList<Integer> implements CircularList{
+public class CircularListImpl implements CircularList{
 
+    private ArrayList<Integer> list = new ArrayList<Integer>();
     private int currentIndex = 0;
 
     @Override
     public void add(int element) {
-        super.add(element);
+        this.list.add(element);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
             return Optional.ofNullable(null);
         }
         else{
-            int result = this.get(this.currentIndex);
+            int result = this.list.get(this.currentIndex);
             this.currentIndex++;
             this.fixIndex();
             return Optional.ofNullable(result);
@@ -33,7 +34,7 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
         else{
             this.currentIndex--;
             this.fixIndex();
-            int result = this.get(this.currentIndex);
+            int result = this.list.get(this.currentIndex);
             return Optional.ofNullable(result);
         }
     }
@@ -50,5 +51,15 @@ public class CircularListImpl extends ArrayList<Integer> implements CircularList
         else if(this.currentIndex < 0){
             this.currentIndex = this.currentIndex + this.size();
         }
+    }
+
+    @Override
+    public int size() {
+        return this.list.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.list.isEmpty();
     }
 }
