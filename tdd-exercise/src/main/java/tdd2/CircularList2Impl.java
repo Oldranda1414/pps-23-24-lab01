@@ -7,16 +7,17 @@ import java.util.Iterator;
 public class CircularList2Impl implements CircularList2 {
 
     private ArrayList<Integer> list = new ArrayList<Integer>();
+    private int currentSize = 0;
 
     @Override
     public void add(int element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        this.list.add(element);
+        this.currentSize++;
     }
 
     @Override
     public int size() {
-        return this.list.size();
+        return this.currentSize;
     }
 
     @Override
@@ -26,7 +27,35 @@ public class CircularList2Impl implements CircularList2 {
 
     @Override
     public Iterator<Integer> forwardIterator() {
-        return Collections.emptyIterator();
+        if(this.isEmpty()){
+            return Collections.emptyIterator();
+        }
+        return new Iterator<Integer>(){
+
+            private int currentIndex = 0;
+            
+            @Override
+            public Integer next(){
+                int value = list.get(this.currentIndex);
+                this.currentIndex++;
+                fixIndex();
+                return value;
+            }
+
+            @Override
+            public boolean hasNext(){
+                return true;
+            }
+
+            private void fixIndex(){
+                if (this.currentIndex < 0){
+                    this.currentIndex = this.currentIndex + currentSize;
+                }
+                else if(this.currentIndex >= currentSize){
+                    this.currentIndex = this.currentIndex - currentSize;
+                }
+            }
+        };
     }
 
     @Override
