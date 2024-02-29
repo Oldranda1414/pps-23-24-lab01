@@ -26,14 +26,12 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> next() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'next'");
+        return Optional.ofNullable(null);
     }
 
     @Override
     public Optional<Integer> previous() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'previous'");
+        return Optional.ofNullable(null);
     }
 
     @Override
@@ -44,8 +42,7 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> filteredNext(Function<Integer, Boolean> filter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filteredNext'");
+        return Optional.ofNullable(null);
     }
     
 }
