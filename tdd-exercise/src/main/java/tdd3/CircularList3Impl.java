@@ -26,12 +26,12 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> next() {
-        return this.performStep("forward");
+        return this.performStep("forward", Optional.ofNullable(null));
     }
 
     @Override
     public Optional<Integer> previous() {
-        return this.performStep("backward");
+        return this.performStep("backward", Optional.ofNullable(null));
     }
 
     @Override
@@ -41,29 +41,38 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> filteredNext(Function<Integer, Boolean> filter) {
-        return Optional.ofNullable(null);
+        return this.performStep("forward", Optional.of(filter));
     }
 
-    private Optional<Integer> performStep(String type){
-        final int FORWARD_STEP = 1;
-        final int BACKWARD_STEP = -1;
-
+    private Optional<Integer> performStep(String type, Optional<Function<Integer, Boolean>> filter){
         if(this.isEmpty()){
             return Optional.ofNullable(null);
         }
-
-        int value = this.list.get(this.currentIndex);
-        
-        int step;
-        if(type.equals("forward")){
-            step = FORWARD_STEP;
-        } 
         else{
-            step = BACKWARD_STEP;
-        } 
-        this.currentIndex = this.currentIndex + step;
-        this.fixIndex();
-        return Optional.of(value);
+
+            final int FORWARD_STEP = 1;
+            final int BACKWARD_STEP = -1;
+            
+            int value;
+            int step;
+    
+            if(filter.isPresent()){
+                value = this.findNextFiltered(filter.get());
+            }
+            else{
+                value = this.list.get(this.currentIndex);
+            }
+            
+            if(type.equals("forward")){
+                step = FORWARD_STEP;
+            } 
+            else{
+                step = BACKWARD_STEP;
+            } 
+
+            this.updateIndex(step);
+            return Optional.of(value);
+        }
     }
 
     private void fixIndex(){
@@ -73,6 +82,19 @@ public class CircularList3Impl implements CircularList3{
         else if(this.currentIndex < 0){
             this.currentIndex = this.currentIndex + this.size();
         }
+    }
+
+    private void updateIndex(int update){
+        this.currentIndex = this.currentIndex + update;
+        this.fixIndex();
+    }
+
+    private int findNextFiltered(Function<Integer, Boolean> filter){
+        while(!filter.apply(this.list.get(this.currentIndex))){
+            this.currentIndex++;
+            this.fixIndex();
+        }
+        return this.list.get(this.currentIndex);
     }
     
 }

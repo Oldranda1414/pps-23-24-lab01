@@ -14,10 +14,10 @@ import tdd3.CircularList3Impl;
 public class CircularList3Test {
     
     private CircularList3 circularList;
-    private Function<Integer, Boolean> isEven = (value) -> value % 2 == 0;
+    private Function<Integer, Boolean> isOdd = (value) -> value % 2 == 1;
     private int TEST_VALUE = 1;
     private int SECOND_TEST_VALUE = 2;
-    private int THIRD_TEST_VALUE = 2;
+    private int THIRD_TEST_VALUE = 3;
 
     @BeforeEach
     void BeforeAll(){
@@ -31,7 +31,7 @@ public class CircularList3Test {
             () -> assertEquals(0, circularList.size()),
             () -> assertFalse(circularList.next().isPresent()),
             () -> assertFalse(circularList.previous().isPresent()),
-            () -> assertFalse(circularList.filteredNext(isEven).isPresent())
+            () -> assertFalse(circularList.filteredNext(isOdd).isPresent())
         );
     }
 
@@ -67,14 +67,22 @@ public class CircularList3Test {
     }
 
     @Test
+    void testFilteredNext(){
+        addThreeElements();
+        assertAll(
+            () -> assertEquals(TEST_VALUE, circularList.filteredNext(isOdd).get()),
+            () -> assertEquals(THIRD_TEST_VALUE, circularList.filteredNext(isOdd).get()),
+            () -> assertEquals(TEST_VALUE, circularList.filteredNext(isOdd).get())
+        );
+    }
+
+    @Test
     void testReset(){
         addThreeElements();
         circularList.next();
         circularList.reset();
         assertEquals(TEST_VALUE, circularList.next().get());
     }
-
-    
 
     private void addThreeElements(){
         circularList.add(TEST_VALUE);
