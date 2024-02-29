@@ -13,8 +13,10 @@ import tdd3.CircularList3Impl;
 
 public class CircularList3Test {
     
-    private Function<Integer, Boolean> isEven = (value) -> value % 2 == 0;
     private CircularList3 circularList;
+    private Function<Integer, Boolean> isEven = (value) -> value % 2 == 0;
+    private int TEST_VALUE = 1;
+    private int SECOND_TEST_VALUE = 2;
 
     @BeforeEach
     void BeforeAll(){
@@ -30,5 +32,19 @@ public class CircularList3Test {
             () -> assertFalse(circularList.previous().isPresent()),
             () -> assertFalse(circularList.filteredNext(isEven).isPresent())
         );
+    }
+
+    @Test
+    void testAdd(){
+        addTwoElements();
+        assertAll(
+            () -> assertFalse(circularList.isEmpty()),
+            () -> assertEquals(circularList.size(), 2)
+        );
+    }
+
+    private void addTwoElements(){
+        circularList.add(TEST_VALUE);
+        circularList.add(SECOND_TEST_VALUE);
     }
 }

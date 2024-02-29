@@ -10,8 +10,7 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public void add(int element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        this.list.add(element);
     }
 
     @Override
