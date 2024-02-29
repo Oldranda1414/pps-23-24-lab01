@@ -39,7 +39,17 @@ public class CircularList3Test {
         addTwoElements();
         assertAll(
             () -> assertFalse(circularList.isEmpty()),
-            () -> assertEquals(circularList.size(), 2)
+            () -> assertEquals(2 ,circularList.size())
+        );
+    }
+
+    @Test
+    void testNext(){
+        addTwoElements();
+        assertAll(
+            () -> assertEquals(TEST_VALUE, circularList.next().get()),
+            () -> assertEquals(SECOND_TEST_VALUE, circularList.next().get()),
+            () -> assertEquals(TEST_VALUE, circularList.next().get())
         );
     }
 

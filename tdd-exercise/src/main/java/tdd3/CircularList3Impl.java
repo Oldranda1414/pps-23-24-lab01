@@ -7,6 +7,7 @@ import java.util.function.Function;
 public class CircularList3Impl implements CircularList3{
 
     private ArrayList<Integer> list = new ArrayList<Integer>();
+    private int currentIndex = 0;
 
     @Override
     public void add(int element) {
@@ -25,7 +26,13 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> next() {
-        return Optional.ofNullable(null);
+        if(this.isEmpty()){
+            return Optional.ofNullable(null);
+        }
+        int value = this.list.get(this.currentIndex);
+        this.currentIndex++;
+        this.fixIndex();
+        return Optional.of(value);
     }
 
     @Override
@@ -42,6 +49,12 @@ public class CircularList3Impl implements CircularList3{
     @Override
     public Optional<Integer> filteredNext(Function<Integer, Boolean> filter) {
         return Optional.ofNullable(null);
+    }
+
+    private void fixIndex(){
+        if(this.currentIndex >= this.size()){
+            this.currentIndex = 0;
+        }
     }
     
 }
