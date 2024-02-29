@@ -1,9 +1,12 @@
 package tdd3;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class CircularList3Impl implements CircularList3{
+
+    private ArrayList<Integer> list = new ArrayList<Integer>();
 
     @Override
     public void add(int element) {
@@ -13,14 +16,12 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return this.list.size();
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return this.list.isEmpty();
     }
 
     @Override
