@@ -66,6 +66,14 @@ public class CircularList3Test {
         );
     }
 
+    @Test
+    void testReset(){
+        addThreeElements();
+        circularList.next();
+        circularList.reset();
+        assertEquals(TEST_VALUE, circularList.next().get());
+    }
+
     
 
     private void addThreeElements(){

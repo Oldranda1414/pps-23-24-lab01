@@ -36,8 +36,7 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reset'");
+        this.currentIndex = 0;
     }
 
     @Override
