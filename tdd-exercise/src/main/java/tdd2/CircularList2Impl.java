@@ -39,8 +39,12 @@ public class CircularList2Impl implements CircularList2 {
         if(this.isEmpty()){
             return Collections.emptyIterator();
         }
+        return this.IteratorFactory(type);
+    }
+
+    private Iterator<Integer> IteratorFactory(String type){
         return new Iterator<Integer>(){
-            private int currentIndex = type.equals("forward")?0:currentSize - 1;
+            private int currentIndex = 0;
             private final int FORWARD_STEP = 1;
             private final int BACKWARD_STEP = -1;
             

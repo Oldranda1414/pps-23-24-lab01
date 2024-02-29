@@ -48,9 +48,9 @@ public class CircularList2Test {
         addTwoElements();
         Iterator<Integer> iter = circularList.backwardIterator();
         assertAll(
-            () -> assertEquals(SECOND_TEST_VALUE, iter.next()),
             () -> assertEquals(TEST_VALUE, iter.next()),
-            () -> assertEquals(SECOND_TEST_VALUE, iter.next())
+            () -> assertEquals(SECOND_TEST_VALUE, iter.next()),
+            () -> assertEquals(TEST_VALUE, iter.next())
         );
     }
 
