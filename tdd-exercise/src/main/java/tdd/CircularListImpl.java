@@ -32,9 +32,9 @@ public class CircularListImpl implements CircularList{
             return Optional.ofNullable(null);
         }
         else{
+            int result = this.list.get(this.currentIndex);
             this.currentIndex--;
             this.fixIndex();
-            int result = this.list.get(this.currentIndex);
             return Optional.ofNullable(result);
         }
     }
@@ -43,7 +43,17 @@ public class CircularListImpl implements CircularList{
     public void reset() {
         this.currentIndex = 0;
     }
-
+    
+    @Override
+    public int size() {
+        return this.list.size();
+    }
+    
+    @Override
+    public boolean isEmpty() {
+        return this.list.isEmpty();
+    }
+    
     private void fixIndex(){
         if(this.currentIndex >= this.size()){
             this.currentIndex = this.currentIndex - this.size();
@@ -51,15 +61,5 @@ public class CircularListImpl implements CircularList{
         else if(this.currentIndex < 0){
             this.currentIndex = this.currentIndex + this.size();
         }
-    }
-
-    @Override
-    public int size() {
-        return this.list.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.list.isEmpty();
     }
 }

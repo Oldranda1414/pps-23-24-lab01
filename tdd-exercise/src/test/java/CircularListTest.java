@@ -16,6 +16,7 @@ public class CircularListTest {
 
     private static final int TEST_VALUE = 1;
     private static final int SECOND_TEST_VALUE = 2;
+    private static final int THIRD_TEST_VALUE = 3;
     
     private CircularList circularList;
 
@@ -46,44 +47,47 @@ public class CircularListTest {
 
     @Test
     void testNextFunctionality(){
-        this.addTwoValues();
+        this.addThreeValues();
         circularList.next();
         assertEquals(SECOND_TEST_VALUE ,circularList.next().get());
     }
 
     @Test
     void testPreviousFuncionality(){
-        this.addTwoValues();
-        circularList.next();
-        assertEquals(TEST_VALUE, circularList.previous().get());
+        this.addThreeValues();
+        circularList.previous();
+        assertEquals(THIRD_TEST_VALUE, circularList.previous().get());
     }
 
     @Test
     void testListForwardCircularity(){
-        this.addTwoValues();
-        circularList.next();
-        circularList.next();
-        assertEquals(TEST_VALUE ,circularList.next().get());
+        this.addThreeValues();
+        assertEquals(TEST_VALUE, circularList.next().get());
+        assertEquals(SECOND_TEST_VALUE, circularList.next().get());
+        assertEquals(THIRD_TEST_VALUE, circularList.next().get());
+        assertEquals(TEST_VALUE, circularList.next().get());
     }
 
     @Test
     void testListBackwardCircularity(){
-        this.addTwoValues();
-        circularList.previous();
-        circularList.previous();
+        this.addThreeValues();
+        assertEquals(TEST_VALUE, circularList.previous().get());
+        assertEquals(THIRD_TEST_VALUE, circularList.previous().get());
         assertEquals(SECOND_TEST_VALUE, circularList.previous().get());
+        assertEquals(TEST_VALUE, circularList.previous().get());
     }
 
     @Test
     void testResetIterator(){
-        this.addTwoValues();
+        this.addThreeValues();
         circularList.next();
         circularList.reset();
         assertEquals(TEST_VALUE, circularList.next().get());
     }
     
-    private void addTwoValues(){
+    private void addThreeValues(){
         circularList.add(TEST_VALUE);
         circularList.add(SECOND_TEST_VALUE);
+        circularList.add(THIRD_TEST_VALUE);
     }
 }
