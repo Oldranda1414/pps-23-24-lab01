@@ -27,17 +27,28 @@ public class CircularList2Impl implements CircularList2 {
 
     @Override
     public Iterator<Integer> forwardIterator() {
+        return this.iteratorBuilder("forward");
+    }
+
+    @Override
+    public Iterator<Integer> backwardIterator() {
+        return this.iteratorBuilder("backward");
+    }
+
+    private Iterator<Integer> iteratorBuilder(String type){
         if(this.isEmpty()){
             return Collections.emptyIterator();
         }
         return new Iterator<Integer>(){
-
-            private int currentIndex = 0;
+            private int currentIndex = type.equals("forward")?0:currentSize - 1;
+            private final int FORWARD_STEP = 1;
+            private final int BACKWARD_STEP = -1;
             
             @Override
             public Integer next(){
                 int value = list.get(this.currentIndex);
-                this.currentIndex++;
+                int step = type.equals("forward")?this.FORWARD_STEP:this.BACKWARD_STEP;
+                this.currentIndex = this.currentIndex + step; 
                 fixIndex();
                 return value;
             }
@@ -56,11 +67,6 @@ public class CircularList2Impl implements CircularList2 {
                 }
             }
         };
-    }
-
-    @Override
-    public Iterator<Integer> backwardIterator() {
-        return Collections.emptyIterator();
     }
     
 }

@@ -43,6 +43,17 @@ public class CircularList2Test {
         );
     }
 
+    @Test
+    void testBackwardIterator(){
+        addTwoElements();
+        Iterator<Integer> iter = circularList.backwardIterator();
+        assertAll(
+            () -> assertEquals(SECOND_TEST_VALUE, iter.next()),
+            () -> assertEquals(TEST_VALUE, iter.next()),
+            () -> assertEquals(SECOND_TEST_VALUE, iter.next())
+        );
+    }
+
     private void addTwoElements(){
         circularList.add(TEST_VALUE);
         circularList.add(SECOND_TEST_VALUE);
