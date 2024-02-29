@@ -55,6 +55,17 @@ public class CircularList3Test {
         );
     }
 
+    @Test
+    void testPrevious(){
+        addThreeElements();
+        assertAll(
+            () -> assertEquals(TEST_VALUE, circularList.previous().get()),
+            () -> assertEquals(THIRD_TEST_VALUE, circularList.previous().get()),
+            () -> assertEquals(SECOND_TEST_VALUE, circularList.previous().get()),
+            () -> assertEquals(TEST_VALUE, circularList.previous().get())
+        );
+    }
+
     
 
     private void addThreeElements(){

@@ -26,18 +26,12 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> next() {
-        if(this.isEmpty()){
-            return Optional.ofNullable(null);
-        }
-        int value = this.list.get(this.currentIndex);
-        this.currentIndex++;
-        this.fixIndex();
-        return Optional.of(value);
+        return this.performStep("forward");
     }
 
     @Override
     public Optional<Integer> previous() {
-        return Optional.ofNullable(null);
+        return this.performStep("backward");
     }
 
     @Override
@@ -51,9 +45,34 @@ public class CircularList3Impl implements CircularList3{
         return Optional.ofNullable(null);
     }
 
+    private Optional<Integer> performStep(String type){
+        final int FORWARD_STEP = 1;
+        final int BACKWARD_STEP = -1;
+
+        if(this.isEmpty()){
+            return Optional.ofNullable(null);
+        }
+
+        int value = this.list.get(this.currentIndex);
+        
+        int step;
+        if(type.equals("forward")){
+            step = FORWARD_STEP;
+        } 
+        else{
+            step = BACKWARD_STEP;
+        } 
+        this.currentIndex = this.currentIndex + step;
+        this.fixIndex();
+        return Optional.of(value);
+    }
+
     private void fixIndex(){
         if(this.currentIndex >= this.size()){
-            this.currentIndex = 0;
+            this.currentIndex = this.currentIndex - this.size();
+        }
+        else if(this.currentIndex < 0){
+            this.currentIndex = this.currentIndex + this.size();
         }
     }
     
