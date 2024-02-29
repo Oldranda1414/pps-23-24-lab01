@@ -17,6 +17,7 @@ public class CircularList3Test {
     private Function<Integer, Boolean> isEven = (value) -> value % 2 == 0;
     private int TEST_VALUE = 1;
     private int SECOND_TEST_VALUE = 2;
+    private int THIRD_TEST_VALUE = 2;
 
     @BeforeEach
     void BeforeAll(){
@@ -36,25 +37,29 @@ public class CircularList3Test {
 
     @Test
     void testAdd(){
-        addTwoElements();
+        addThreeElements();
         assertAll(
             () -> assertFalse(circularList.isEmpty()),
-            () -> assertEquals(2 ,circularList.size())
+            () -> assertEquals(3, circularList.size())
         );
     }
 
     @Test
     void testNext(){
-        addTwoElements();
+        addThreeElements();
         assertAll(
             () -> assertEquals(TEST_VALUE, circularList.next().get()),
             () -> assertEquals(SECOND_TEST_VALUE, circularList.next().get()),
+            () -> assertEquals(THIRD_TEST_VALUE, circularList.next().get()),
             () -> assertEquals(TEST_VALUE, circularList.next().get())
         );
     }
 
-    private void addTwoElements(){
+    
+
+    private void addThreeElements(){
         circularList.add(TEST_VALUE);
         circularList.add(SECOND_TEST_VALUE);
+        circularList.add(THIRD_TEST_VALUE);
     }
 }
