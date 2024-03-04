@@ -26,12 +26,14 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> next() {
-        return this.performStep("forward", Optional.ofNullable(null));
+        final int STEP = 1;
+        return this.performStep(STEP, Optional.ofNullable(null));
     }
 
     @Override
     public Optional<Integer> previous() {
-        return this.performStep("backward", Optional.ofNullable(null));
+        final int STEP = -1;
+        return this.performStep(STEP , Optional.ofNullable(null));
     }
 
     @Override
@@ -41,20 +43,17 @@ public class CircularList3Impl implements CircularList3{
 
     @Override
     public Optional<Integer> filteredNext(Function<Integer, Boolean> filter) {
-        return this.performStep("forward", Optional.of(filter));
+        final int STEP = 1;
+        return this.performStep(STEP, Optional.of(filter));
     }
 
-    private Optional<Integer> performStep(String type, Optional<Function<Integer, Boolean>> filter){
+    private Optional<Integer> performStep(final int STEP, Optional<Function<Integer, Boolean>> filter){
         if(this.isEmpty()){
             return Optional.ofNullable(null);
         }
         else{
 
-            final int FORWARD_STEP = 1;
-            final int BACKWARD_STEP = -1;
-            
             int value;
-            int step;
     
             if(filter.isPresent()){
                 value = this.findNextFiltered(filter.get());
@@ -63,14 +62,7 @@ public class CircularList3Impl implements CircularList3{
                 value = this.list.get(this.currentIndex);
             }
             
-            if(type.equals("forward")){
-                step = FORWARD_STEP;
-            } 
-            else{
-                step = BACKWARD_STEP;
-            } 
-
-            this.updateIndex(step);
+            this.updateIndex(STEP);
             return Optional.of(value);
         }
     }
