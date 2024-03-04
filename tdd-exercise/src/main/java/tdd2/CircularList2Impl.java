@@ -27,31 +27,30 @@ public class CircularList2Impl implements CircularList2 {
 
     @Override
     public Iterator<Integer> forwardIterator() {
-        return this.iteratorBuilder("forward");
+        final int STEP = 1;
+        return this.iteratorBuilder(STEP);
     }
 
     @Override
     public Iterator<Integer> backwardIterator() {
-        return this.iteratorBuilder("backward");
+        final int STEP = -1;
+        return this.iteratorBuilder(STEP);
     }
 
-    private Iterator<Integer> iteratorBuilder(String type){
+    private Iterator<Integer> iteratorBuilder(int step){
         if(this.isEmpty()){
             return Collections.emptyIterator();
         }
-        return this.IteratorFactory(type);
+        return this.IteratorFactory(step);
     }
 
-    private Iterator<Integer> IteratorFactory(String type){
+    private Iterator<Integer> IteratorFactory(int step){
         return new Iterator<Integer>(){
             private int currentIndex = 0;
-            private final int FORWARD_STEP = 1;
-            private final int BACKWARD_STEP = -1;
             
             @Override
             public Integer next(){
                 int value = list.get(this.currentIndex);
-                int step = type.equals("forward")?this.FORWARD_STEP:this.BACKWARD_STEP;
                 this.currentIndex = this.currentIndex + step; 
                 fixIndex();
                 return value;
